@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head">
+</head>
+<body>
+
+<div th:replace="fragments :: page-header"></div>
+
+<div class="container body-content">
+    <!--<p th:text="${jobForm}"></p>-->
+    <form th:object="${jobForm}" method="post">
+
+        <div class="form-group">
+            <label th:for="name">Name</label>
+            <input th:field="*{name}" />
+            <div th:errors="*{name}"></div>
+            <p th:if="*{name == null}" th:text="${errors}" class="error"></p>
+        </div>
+
+        <div class="form-group">
+            <label th:for="employer">Employer</label>
+            <select th:field="*{employer}">
+                <option th:each="employer : *{employers}"
+                        th:value="${employer}"
+                        th:text="${employer}"></option>
+            </select>
+        </div>
+
+        <!-- TODO #5 - Create <select> dropdowns for other job fields -->
+        <div class="form-group">
+            <label th:for="location">Location</label>
+            <select th:field="*{location}">
+                <option th:each="location : *{locations}"
+                        th:value="${location}"
+                        th:text="${location}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label th:for="coreCompetency">Skill</label>
+            <select th:field="*{coreCompetency}">
+                <option th:each="coreCompetency : *{coreCompetencies}"
+                        th:value="${coreCompetency}"
+                        th:text="${coreCompetency}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label th:for="positionType">Position Type</label>
+            <select th:field="*{positionType}">
+                <option th:each="positionType : *{positionTypes}"
+                        th:value="${positionType}"
+                        th:text="${positionType}"></option>
+            </select>
+        </div>
+        <input type="submit" value="Add Job" />
+
+        <h3 th:text="${jobForm.getName()}"></h3>
+        <h3 th:text="${jobForm.getEmployer()}"></h3>
+        <h3 th:text="${jobForm.getLocation()}"></h3>
+        <h3 th:text="${jobForm.getCoreCompetency()}"></h3>
+        <h3 th:text="${jobForm.getPositionType()}"></h3>
+
+    </form>
+
+
+</div>
+
+</body>
+</html>
